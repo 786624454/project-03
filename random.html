@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>随机点名</title>
+  </head>
+  <style>
+    span {
+      font-size: 16px;
+      line-height: 40px;
+      text-align: center;
+      height: 40px;
+      width: 80px;
+      display: inline-block;
+      border: 1px solid pink;
+    }
+  </style>
+  <body>
+    <div>选中的名字是：<span>张飞</span></div>
+    <button class="start">开始</button>
+    <button class="stop">暂停</button>
+    <script>
+      let ary = ["张工", "李四", "秃头", "三水", "邯郸", "张飞"];
+      let span = document.querySelector("span");
+      let start = document.querySelector(".start");
+      let stop = document.querySelector(".stop");
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      // let random = getRandom(0, ary.length - 1);
+      // span.innerText = ary[random];
+      //抽到的要去除
+      // ary.splice(random, 1);
+      // console.log(ary);
+      let timer = 0;
+      let radom = 0;
+      start.addEventListener("click", function () {
+        let i = 5;
+        timer = setInterval(function () {
+          i++;
+          random = getRandom(0, ary.length - 1);
+          console.log(ary[random]);
+          span.innerText = ary[random];
+          if (i === ary.length - 1) {
+            i = -1;
+          }
+        }, 25);
+
+        if (ary.length === 1) {
+          console.log("已经最后一个了");
+          start.disabled = true;
+          stop.disabled = true;
+          clearInterval(timer);
+        }
+      });
+      stop.addEventListener("click", function () {
+        clearInterval(timer);
+        span.innerText = ary[random];
+        //抽到的要去除
+        ary.splice(random, 1);
+      });
+    </script>
+  </body>
+</html>
